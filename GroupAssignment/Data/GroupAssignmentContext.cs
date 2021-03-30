@@ -17,7 +17,7 @@ namespace GroupAssignment.Data
 
         public DbSet<Event> Event { get; set; }
         public DbSet<MyUser> MyUser { get; set; }
-        public DbSet<Organizer> Organizer { get; set; }
+        
 
 
     }

@@ -6,6 +6,9 @@ namespace GroupAssignment.Models
 {
     public class MyUser : IdentityUser
     {
-        public List<Event> Events { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public List<Event> JoinedEvents { get; set; }
+        public List<Event> HostedEvents { get; set; }
     }
 }
