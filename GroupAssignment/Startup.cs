@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using GroupAssignment.Data;
+using GroupAssignment.Models;
 
 namespace GroupAssignment
 {
@@ -29,6 +30,11 @@ namespace GroupAssignment
 
             services.AddDbContext<GroupAssignmentContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("GroupAssignmentContext")));
+
+            services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<GroupAssignmentContext>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +56,7 @@ namespace GroupAssignment
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

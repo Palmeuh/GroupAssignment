@@ -8,13 +8,17 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace GroupAssignment.Data
 {
-    public class GroupAssignmentContext : IdentityDbContext
+    public class GroupAssignmentContext : IdentityDbContext<MyUser>
     {
         public GroupAssignmentContext (DbContextOptions<GroupAssignmentContext> options)
             : base(options)
         {
         }
 
-        public DbSet<GroupAssignment.Models.Event> Event { get; set; }
+        public DbSet<Event> Event { get; set; }
+        public DbSet<MyUser> MyUser { get; set; }
+        public DbSet<Organizer> Organizer { get; set; }
+
+
     }
 }
