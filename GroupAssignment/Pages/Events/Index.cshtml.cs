@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GroupAssignment.Data;
 using GroupAssignment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GroupAssignment.Pages.Events
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly GroupAssignment.Data.GroupAssignmentContext _context;
