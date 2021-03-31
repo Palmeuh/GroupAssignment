@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using GroupAssignment.Data;
 using GroupAssignment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GroupAssignment
 {
@@ -33,6 +34,13 @@ namespace GroupAssignment
 
             services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<GroupAssignmentContext>();
+
+
+            //All pages require authentication unless specified in the model, see Pages/Index.
+            services.AddAuthorization(options =>
+            options.FallbackPolicy = new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build());
 
             
         }
