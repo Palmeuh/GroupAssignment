@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using GroupAssignment.Data;
 using GroupAssignment.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace GroupAssignment
 {
@@ -32,8 +34,13 @@ namespace GroupAssignment
             services.AddDbContext<GroupAssignmentContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("GroupAssignmentContext")));
 
-            services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddIdentity<MyUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<GroupAssignmentContext>();
+
+           
 
 
             //All pages require authentication unless specified in the model, see Pages/Index.
