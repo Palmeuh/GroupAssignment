@@ -19,22 +19,12 @@ namespace GroupAssignment
             CreateDbIfNotExists(host);
             host.Run();
         }
-        private static void CreateDbIfNotExists(IHost host)
+        private async static void CreateDbIfNotExists(IHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<GroupAssignmentContext>();
-                    context.Database.EnsureCreated();
-                    Seed.Seeding(context);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred creating the DB.");
-                }
+                await Seed.Seeding(services);
             }
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>

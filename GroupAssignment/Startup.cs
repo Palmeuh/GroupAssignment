@@ -40,6 +40,8 @@ namespace GroupAssignment
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<GroupAssignmentContext>();
 
+            services.AddScoped<RoleManager<IdentityRole>>();
+
            
 
 
