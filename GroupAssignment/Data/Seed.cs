@@ -15,6 +15,10 @@ namespace GroupAssignment.Data
             var context = services.GetRequiredService<GroupAssignmentContext>();
 
             context.Database.EnsureCreated();
+            if (context.Event.Any())
+            {
+                return;
+            }
 
             var userManager = services.GetRequiredService<UserManager<MyUser>>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
