@@ -27,6 +27,7 @@ namespace GroupAssignment.Pages.Events
         
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -34,10 +35,17 @@ namespace GroupAssignment.Pages.Events
 
             Event = await _context.Event.FirstOrDefaultAsync(e => e.Id == id);
 
-            if (Event == null)
+            var thisUser = _userManager.GetUserId(User);
+
+            user = user = await _context.MyUser.Where(x => x.Id == thisUser).
+                Include(jo => jo.JoinedEvents).FirstOrDefaultAsync();
+
+            if (user == null)
             {
                 return NotFound();
             }
+            
+            
             return Page();
         }
         public async Task<IActionResult> OnPostAsync(int? id)

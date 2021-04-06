@@ -4,6 +4,9 @@
 @{
     ViewData["Title"] = "Details";
 }
+@using Microsoft.AspNetCore.Identity;
+@using GroupAssignment.Models;
+
 
 
 <h1>Details</h1>
@@ -51,8 +54,15 @@
     </dl>
 </div>
 <form method="post">
+    @if (Model.user.JoinedEvents.Contains(Model.Event) == false)
+    {
 
-        <input type="submit"  asp-route-id="@Model.Event.Id" class="btn-primary"
-        style="color:black; background-color:yellow" value="Join Event" />
+        <input type="submit" asp-route-id="@Model.Event.Id" class="btn-primary"
+               style="color:black; background-color:yellow" value="Join Event" />
+    }
+    else
+    {
+        <p>You have joined this event</p>
+    }
 
 </form>
