@@ -42,7 +42,9 @@ namespace GroupAssignment
 
             services.AddScoped<RoleManager<IdentityRole>>();
 
-           
+            services.AddScoped<IUserClaimsPrincipalFactory<MyUser>, AppClaimsPrincipalFactory>();
+
+
 
 
             //All pages require authentication unless specified in the model, see Pages/Index.

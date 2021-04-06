@@ -26,6 +26,7 @@ namespace GroupAssignment.Pages.Events
         public async Task OnGetAsync()
         {
             Event = await _context.Event.ToListAsync();
+
         }
     }
 }
