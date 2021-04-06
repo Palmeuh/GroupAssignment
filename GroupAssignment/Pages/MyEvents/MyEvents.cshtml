@@ -14,23 +14,21 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Description)
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Place)
+                Adress
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Address)
+                Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Date)
+                Spots Available
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Event[0].SpotsAvailable)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -43,9 +41,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Place)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
