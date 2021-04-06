@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GroupAssignment.Data;
 using GroupAssignment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GroupAssignment.Pages.Events
 {
+    [Authorize(Roles = "Organizer")]
     public class CreateModel : PageModel
     {
         private readonly GroupAssignment.Data.GroupAssignmentContext _context;
