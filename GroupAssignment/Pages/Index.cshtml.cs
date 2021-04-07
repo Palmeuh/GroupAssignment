@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GroupAssignment.Pages
 {
-    [Authorize(Roles = "Administrator")]
+    [AllowAnonymous]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
