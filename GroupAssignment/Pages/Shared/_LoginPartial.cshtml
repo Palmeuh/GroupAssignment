@@ -9,14 +9,14 @@
         @if (User.IsInRole("Administrator"))
         {
             <li class="nav-item">
-                <a id="manageUsers" class="nav-link text-dark" asp-page="/Administration/Index">Manager Users</a>
+                <a id="manageUsers" class="nav-link text-dark" asp-page="/Administration/ManageUsers">Manage Users</a>
             </li>
             <li class="nav-item">
-                <a id="manageRoles" class="nav-link text-dark" asp-page="/Administration/ManageRoles">Manager Roles</a>
+                <a id="manageRoles" class="nav-link text-dark" asp-page="/Administration/ManageRoles">Manage Roles</a>
             </li>
         }
         @if (User.IsInRole("Organizer") || User.IsInRole("Administrator"))
-        {
+        {            
             <li class="nav-item">
                 <a style="background-color:limegreen; color:white; " class="nav-link text-dark" asp-area="" asp-page="/Events/Create">Add Event</a>
             </li>
