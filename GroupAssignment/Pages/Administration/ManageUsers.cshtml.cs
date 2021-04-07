@@ -6,6 +6,8 @@ using GroupAssignment.Data;
 using GroupAssignment.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GroupAssignment.Pages.ManageUsers
 {
@@ -18,9 +20,12 @@ namespace GroupAssignment.Pages.ManageUsers
 
         public IEnumerable<MyUser> Users { get; set; }
 
-        public IEnumerable<IdentityRole> Roles { get; set; }
+        public IEnumerable<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
 
         public Dictionary<MyUser, string> UserRoles { get; set; }
+        public SelectList Options { get; set; }
+        [BindProperty]
+        public string SelectedRole { get; set; }
 
 
         public IndexModel(UserManager<MyUser> usermanager,
@@ -40,7 +45,8 @@ namespace GroupAssignment.Pages.ManageUsers
         public async Task OnGetAsync()
         {
             Users = await _userManager.Users.ToListAsync();
-            Roles = await _roleManager.Roles.ToListAsync();            
+            Roles = await _roleManager.Roles.ToListAsync();
+            
 
             var users = await _userManager.Users.ToListAsync();            
             foreach (var u in users)
@@ -54,17 +60,33 @@ namespace GroupAssignment.Pages.ManageUsers
                 }               
             }
 
+            var selectList = new List<string>();
 
+            foreach (var role in Roles)
+            {
+                selectList.Add(role.Name);
+            }
 
-
-
-
-
-
+            Options = new SelectList(selectList);
 
         }
 
+        public async Task<IActionResult> ChangeRole(string id)
+        {
+            Users = await _userManager.Users.ToListAsync();
+            Roles = await _roleManager.Roles.ToListAsync();
 
+            var user = await _userManager.FindByIdAsync(id);
+            var userRole = await _userManager.GetRolesAsync(user);
+
+            await _userManager.RemoveFromRoleAsync(user, userRole[0]);
+            await _userManager.AddToRoleAsync(user, SelectedRole);
+
+            await _groupAssignmentContext.SaveChangesAsync();
+
+            return Page();
+
+        }
 
     }
 }

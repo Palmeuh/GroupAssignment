@@ -61,6 +61,9 @@
             <th>
                 Role
             </th>
+            <th>
+                Change Role
+            </th>
 
         </tr>
     </thead>
@@ -76,6 +79,12 @@
                 </td>
                 <td>
                     @user.Value
+                </td>
+                <td>
+                    <form asp-page-handler="ChangeRole" asp-route-id="@user.Key.Id"  method="post">
+                        <select asp-for="SelectedRole" asp-items="Model.Options"></select>
+                        <button class="btn-sm btn-danger">Save</button>
+                    </form>
                 </td>
 
             </tr>
