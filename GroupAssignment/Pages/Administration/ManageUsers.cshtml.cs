@@ -20,7 +20,7 @@ namespace GroupAssignment.Pages.ManageUsers
 
         public IEnumerable<MyUser> Users { get; set; }
 
-        public IEnumerable<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
+        public IEnumerable<IdentityRole> Roles { get; set; }
 
         public Dictionary<MyUser, string> UserRoles { get; set; }
         public SelectList Options { get; set; }
@@ -38,14 +38,10 @@ namespace GroupAssignment.Pages.ManageUsers
             UserRoles = new Dictionary<MyUser, string>();
         }
 
-       
-
-
-
         public async Task OnGetAsync()
         {
             Users = await _userManager.Users.ToListAsync();
-            Roles = await _roleManager.Roles.ToListAsync();
+            Roles = await _roleManager.Roles.ToListAsync();            
             
 
             var users = await _userManager.Users.ToListAsync();            
@@ -71,10 +67,8 @@ namespace GroupAssignment.Pages.ManageUsers
 
         }
 
-        public async Task<IActionResult> ChangeRole(string id)
-        {
-            Users = await _userManager.Users.ToListAsync();
-            Roles = await _roleManager.Roles.ToListAsync();
+        public async Task<IActionResult> OnPostAsync(string id)
+        {           
 
             var user = await _userManager.FindByIdAsync(id);
             var userRole = await _userManager.GetRolesAsync(user);
@@ -84,7 +78,7 @@ namespace GroupAssignment.Pages.ManageUsers
 
             await _groupAssignmentContext.SaveChangesAsync();
 
-            return Page();
+            return RedirectToPage("ManageUsers");
 
         }
 
