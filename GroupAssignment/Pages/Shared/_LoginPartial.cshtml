@@ -28,7 +28,7 @@
                     <a class="nav-link text-dark" asp-page="/Events/Create">Add Event</a>
                     @if (User.IsInRole("Organizer"))
                     {
-                        <a class="nav-link text-dark" asp-page="/Events/HostedEvents">Hosted Events</a>
+                        <a class="nav-link text-dark" asp-page="/Organizer/OrganizedEvents">Hosted Events</a>
                     }
                     @if (User.IsInRole("Administrator"))
                     {
