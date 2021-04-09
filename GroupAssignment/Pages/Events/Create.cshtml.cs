@@ -36,10 +36,9 @@ namespace GroupAssignment.Pages.Events
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
-        {
-            var IdUser = _userManager.GetUserId(User);
+        {           
 
-            ThisUser = await _context.MyUser.Where(x => x.Id == IdUser).FirstOrDefaultAsync();
+            ThisUser = await _context.MyUser.Where(x => x.UserName == User.Identity.Name).FirstOrDefaultAsync();
 
             Event.Organizer = ThisUser;
             _context.Event.Add(Event);
