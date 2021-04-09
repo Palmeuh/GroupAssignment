@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GroupAssignment.Pages.Events
 {
-    [Authorize(Roles = "Organizer,Administrator")]
+    [Authorize(Roles = "Organizer")]
     public class CreateModel : PageModel
     {
         private readonly GroupAssignment.Data.GroupAssignmentContext _context;
