@@ -47,14 +47,17 @@ namespace GroupAssignment.Pages.ManageUsers
             var users = await _userManager.Users.ToListAsync();
             foreach (var u in users)
             {
-               
-                var roles = await _userManager.GetRolesAsync(u);
-
-                foreach (var r in roles)
+                if (User.Identity.Name != u.UserName)
                 {
-                    
-                    UserAndRoles.Add(u, r);
+                    var roles = await _userManager.GetRolesAsync(u);
+
+                    foreach (var r in roles)
+                    {
+
+                        UserAndRoles.Add(u, r);
+                    }
                 }
+              
             }
 
             var selectList = new List<string>();
