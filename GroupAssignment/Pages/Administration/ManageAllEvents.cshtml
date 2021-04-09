@@ -1,0 +1,29 @@
+﻿@page
+@model GroupAssignment.Pages.Administration.ManageAllEventsModel
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Organizer</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model.Test)
+        {
+            <tr>
+                <td>
+                    @e.Title
+                </td>
+
+                <td>
+                    @e.Organizer.Email
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>

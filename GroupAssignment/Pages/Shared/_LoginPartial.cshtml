@@ -9,10 +9,10 @@
         @if (User.IsInRole("Administrator"))
         {
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Manage
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdministrator" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Manage Accounts
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownAdministrator">
                     <a class="dropdown-item text-dark" asp-page="/Administration/ManageUsers">Manage Users</a>
                     <a class="dropdown-item text-dark" asp-page="/Administration/ManageRoles">Manage Roles</a>
                 </div>
@@ -20,9 +20,23 @@
         }
         @if (User.IsInRole("Organizer") || User.IsInRole("Administrator"))
         {
-            <li class="nav-item">
-                <a style="background-color:limegreen; color:white; " class="nav-link text-dark" asp-area="" asp-page="/Events/Create">Add Event</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOrganizer" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Manage Events
+                </a>
+                <div class="dropdown-menu" aria-label="navbarDropdownOrganizer">
+                    <a class="nav-link text-dark" asp-page="/Events/Create">Add Event</a>
+                    @if (User.IsInRole("Organizer"))
+                    {
+                        <a class="nav-link text-dark" asp-page="/Events/HostedEvents">Hosted Events</a>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a class="nav-link text-dark" asp-page="/Administration/ManageAllEvents">All Events</a>
+                    }
+                </div>
             </li>
+
         }
         <li class="nav-item">
             <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>

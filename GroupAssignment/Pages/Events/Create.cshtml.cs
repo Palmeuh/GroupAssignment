@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GroupAssignment.Pages.Events
 {
-    [Authorize(Roles = "Organizer")]
+    [Authorize(Roles = "Organizer,Administrator")]
     public class CreateModel : PageModel
     {
         private readonly GroupAssignment.Data.GroupAssignmentContext _context;
@@ -28,6 +28,7 @@ namespace GroupAssignment.Pages.Events
 
         [BindProperty]
         public Event Event { get; set; }
+        public MyUser TheUser { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -37,6 +38,9 @@ namespace GroupAssignment.Pages.Events
                 return Page();
             }
 
+            TheUser =  _context.MyUser.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
+            Event.Organizer = TheUser;
+            
             _context.Event.Add(Event);
             await _context.SaveChangesAsync();
 

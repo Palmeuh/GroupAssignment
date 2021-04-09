@@ -56,8 +56,7 @@ namespace GroupAssignment.Pages.ManageUsers
 
                         UserAndRoles.Add(u, r);
                     }
-                }
-              
+                }              
             }
 
             var selectList = new List<string>();
@@ -84,10 +83,7 @@ namespace GroupAssignment.Pages.ManageUsers
                 await _userManager.AddToRoleAsync(user, SelectedRole);
 
                 await _groupAssignmentContext.SaveChangesAsync();
-
             }
-
-
             return RedirectToPage("ManageUsers");
 
         }
