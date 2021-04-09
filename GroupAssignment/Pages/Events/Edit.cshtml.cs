@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroupAssignment.Data;
 using GroupAssignment.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace GroupAssignment.Pages.Events
 {
-    [Authorize(Roles = "Administrator, Organizer")]
     public class EditModel : PageModel
     {
         private readonly GroupAssignment.Data.GroupAssignmentContext _context;
