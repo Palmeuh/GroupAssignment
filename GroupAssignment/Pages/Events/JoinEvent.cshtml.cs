@@ -59,6 +59,7 @@ namespace GroupAssignment.Pages.Events
 
             if (user != null)
             {
+                Event.Attendees.Add(user);
                 user.JoinedEvents.Add(Event);
                 await _context.SaveChangesAsync();
             }

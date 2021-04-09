@@ -32,6 +32,7 @@ namespace GroupAssignment.Pages.Events
 
         [BindProperty]
         public Event Event { get; set; }
+        public MyUser ThisUser { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -40,6 +41,7 @@ namespace GroupAssignment.Pages.Events
 
             ThisUser = await _context.MyUser.Where(x => x.Id == IdUser).FirstOrDefaultAsync();
 
+            Event.Organizer = ThisUser;
             _context.Event.Add(Event);
             await _context.SaveChangesAsync();
             return RedirectToPage("/Organizer/OrganizedEvents");
