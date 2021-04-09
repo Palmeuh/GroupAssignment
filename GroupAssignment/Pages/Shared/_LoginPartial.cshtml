@@ -16,9 +16,12 @@
             </li>
         }
         @if (User.IsInRole("Organizer") || User.IsInRole("Administrator"))
-        {            
+        {
             <li class="nav-item">
                 <a style="background-color:limegreen; color:white; " class="nav-link text-dark" asp-area="" asp-page="/Events/Create">Add Event</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Organizer/OrganizedEvents">Organized Events</a>
             </li>
         }
         <li class="nav-item">

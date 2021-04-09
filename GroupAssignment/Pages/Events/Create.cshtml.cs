@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using GroupAssignment.Data;
 using GroupAssignment.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace GroupAssignment.Pages.Events
 {
@@ -15,10 +17,12 @@ namespace GroupAssignment.Pages.Events
     public class CreateModel : PageModel
     {
         private readonly GroupAssignment.Data.GroupAssignmentContext _context;
+        private readonly UserManager<MyUser> _userManager;
 
-        public CreateModel(GroupAssignment.Data.GroupAssignmentContext context)
+        public CreateModel(GroupAssignmentContext context, UserManager<MyUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
@@ -28,19 +32,18 @@ namespace GroupAssignment.Pages.Events
 
         [BindProperty]
         public Event Event { get; set; }
-
+        public MyUser ThisUser { get; set; }
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            var IdUser = _userManager.GetUserId(User);
 
+            ThisUser = await _context.MyUser.Where(x => x.Id == IdUser).FirstOrDefaultAsync();
+
+            Event.Organizer = ThisUser;
             _context.Event.Add(Event);
             await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Organizer/OrganizedEvents");
         }
     }
 }
