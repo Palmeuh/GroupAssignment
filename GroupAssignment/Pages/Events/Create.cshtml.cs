@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GroupAssignment.Pages.Events
 {
-    [Authorize(Roles = "Organizer,Administrator")]
+    [Authorize(Roles = "Organizer, Administrator")]
     public class CreateModel : PageModel
     {
         private readonly GroupAssignment.Data.GroupAssignmentContext _context;

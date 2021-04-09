@@ -31,7 +31,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Event[0].SpotsAvailable)
             </th>
-            <th></th>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Organizer"))
+            {
+                <th>
+                    Edit
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -56,10 +61,16 @@
                 @Html.DisplayFor(modelItem => item.SpotsAvailable)
             </td>
             <td>
-                
+
                 <a asp-page="./JoinEvent" asp-route-id="@item.Id">Join</a> |
-                
+
             </td>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Organizer"))
+            {
+                <th>
+                    <a class="btn-sm btn-success text-dark" asp-page="/Events/Edit" asp-route-id="@item.Id">Edit</a>
+                </th>
+            }
         </tr>
 }
     </tbody>
