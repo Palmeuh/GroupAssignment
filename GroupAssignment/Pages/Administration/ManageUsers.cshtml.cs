@@ -22,7 +22,7 @@ namespace GroupAssignment.Pages.ManageUsers
 
         public IEnumerable<IdentityRole> Roles { get; set; }
 
-        public Dictionary<MyUser, string> UserRoles { get; set; }
+        public Dictionary<MyUser, string> UserAndRoles { get; set; }
         public SelectList Options { get; set; }
         [BindProperty]
         public string SelectedRole { get; set; }
@@ -35,29 +35,31 @@ namespace GroupAssignment.Pages.ManageUsers
             _userManager = usermanager;
             _roleManager = roleManager;
             _groupAssignmentContext = groupAssignmentContext;
-            UserRoles = new Dictionary<MyUser, string>();
+            UserAndRoles = new Dictionary<MyUser, string>();
         }
 
         public async Task OnGetAsync()
         {
             Users = await _userManager.Users.ToListAsync();
-            Roles = await _roleManager.Roles.ToListAsync();            
-            
+            Roles = await _roleManager.Roles.ToListAsync();
 
-            var users = await _userManager.Users.ToListAsync();            
+
+            var users = await _userManager.Users.ToListAsync();
             foreach (var u in users)
             {
                
                 var roles = await _userManager.GetRolesAsync(u);
-                
+
                 foreach (var r in roles)
                 {
-                    UserRoles.Add(u, r);
-                }               
+                    
+                    UserAndRoles.Add(u, r);
+                }
             }
 
             var selectList = new List<string>();
 
+            selectList.Add("Choose Role");
             foreach (var role in Roles)
             {
                 selectList.Add(role.Name);
@@ -68,15 +70,20 @@ namespace GroupAssignment.Pages.ManageUsers
         }
 
         public async Task<IActionResult> OnPostAsync(string id)
-        {           
+        {
 
             var user = await _userManager.FindByIdAsync(id);
             var userRole = await _userManager.GetRolesAsync(user);
 
-            await _userManager.RemoveFromRoleAsync(user, userRole[0]);
-            await _userManager.AddToRoleAsync(user, SelectedRole);
+            if (SelectedRole != "Choose Role")
+            {
+                await _userManager.RemoveFromRoleAsync(user, userRole[0]);
+                await _userManager.AddToRoleAsync(user, SelectedRole);
 
-            await _groupAssignmentContext.SaveChangesAsync();
+                await _groupAssignmentContext.SaveChangesAsync();
+
+            }
+
 
             return RedirectToPage("ManageUsers");
 

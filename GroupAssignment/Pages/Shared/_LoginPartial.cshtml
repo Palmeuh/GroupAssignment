@@ -8,15 +8,18 @@
     {
         @if (User.IsInRole("Administrator"))
         {
-            <li class="nav-item">
-                <a id="manageUsers" class="nav-link text-dark" asp-page="/Administration/ManageUsers">Manage Users</a>
-            </li>
-            <li class="nav-item">
-                <a id="manageRoles" class="nav-link text-dark" asp-page="/Administration/ManageRoles">Manage Roles</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Manage
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item text-dark" asp-page="/Administration/ManageUsers">Manage Users</a>
+                    <a class="dropdown-item text-dark" asp-page="/Administration/ManageRoles">Manage Roles</a>
+                </div>
             </li>
         }
         @if (User.IsInRole("Organizer") || User.IsInRole("Administrator"))
-        {            
+        {
             <li class="nav-item">
                 <a style="background-color:limegreen; color:white; " class="nav-link text-dark" asp-area="" asp-page="/Events/Create">Add Event</a>
             </li>
