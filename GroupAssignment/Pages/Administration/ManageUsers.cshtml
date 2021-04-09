@@ -3,61 +3,14 @@
 @{
 }
 
-<h1>Index</h1>
-
-@foreach (var role in Model.Roles)
-{
-<p>@role.Name</p>
-}
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                FirstName
-            </th>
-            <th>
-               LastName
-            </th>
-            <th>
-                Role
-            </th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.Users)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => user.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => user.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => user.UserName)
-                    
-                    
-                </td>
-
-            </tr>
-        }
-    </tbody>
-</table>
+<h1>Manage Users</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                FirstName
-            </th>
-            <th>
-                LastName
-            </th>
+                Username
+            </th>            
             <th>
                 Role
             </th>
@@ -68,25 +21,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model.UserRoles)
+        @foreach (var user in Model.UserAndRoles)
         {
             <tr>
                 <td>
-                    @user.Key.FirstName
-                </td>
-                <td>
-                    @user.Key.LastName
-                </td>
+                    @user.Key.UserName
+                </td>                
                 <td>
                     @user.Value
                 </td>
                 <td>
                     <form asp-route-id="@user.Key.Id"  method="post">
-                        <select asp-for="SelectedRole" asp-items="Model.Options"></select>
+                        <select asp-for="SelectedRole" asp-items="Model.Options">                            
+                        </select>
                         <button class="btn-sm btn-danger">Save</button>
                     </form>
                 </td>
-
             </tr>
         }
     </tbody>

@@ -42,7 +42,7 @@ namespace GroupAssignment
 
             services.AddScoped<RoleManager<IdentityRole>>();
 
-            services.AddScoped<IUserClaimsPrincipalFactory<MyUser>, AppClaimsPrincipalFactory>();
+            
 
 
 
